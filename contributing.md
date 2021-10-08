@@ -26,23 +26,23 @@ This is a simple PHP library for interacting with the Vimeo API.
 
 Please note that this library requires at least PHP 7.1 installed. If you are on PHP 5.6, or PHP 7.0, please use install the package with the following:
 
-composer require vimeo/vimeo-api ^2.0
+# composer require vimeo/vimeo-api
 
 2 .Use the library $lib = new \Vimeo\Vimeo($client_id, $client_secret)
 
-##Unauthenticated
+#Unauthenticated
 Unauthenticated API requests must generate an access token. You should not generate a new access token for each request. Instead, request an access token once and use it forever.
-// `scope` is an array of permissions your token needs to access.
-// You can read more at https://developer.vimeo.com/api/authentication#supported-scopes
+# `scope` is an array of permissions your token needs to access.
+# You can read more at https://developer.vimeo.com/api/authentication#supported-scopes
 $token = $lib->clientCredentials(scope);
 
-// usable access token
+#usable access token
 var_dump($token['body']['access_token']);
 
-// accepted scopes
+# accepted scopes
 var_dump($token['body']['scope']);
 
-// use the token
+# use the token
 $lib->setToken($token['body']['access_token']);
 
 #Authenticated
@@ -51,16 +51,16 @@ $lib->setToken($token['body']['access_token']);
 3. If the user accepts your app, they are redirected back to your redirect_uri with a code and state query parameter (eg. http://yourredirect.com?code=abc&state=xyz).
      I. You must validate that the state matches your state from Step 1.
     II . If the state is valid, you can exchange your code and redirect_uri for an access token.
-// `redirect_uri` must be provided, and must match your configured URI
+# `redirect_uri` must be provided, and must match your configured URI
 $token = $lib->accessToken(code, redirect_uri);
 
-// Usable access token
+# Usable access token
 var_dump($token['body']['access_token']);
 
-// Accepted scopes
+# Accepted scopes
 var_dump($token['body']['scope']);
 
-// Set the token
+# Set the token
 $lib->setToken($token['body']['access_token']);
 
 # reference  from official git link   https://github.com/vimeo/vimeo.php
