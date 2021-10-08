@@ -1,65 +1,67 @@
 # Vimeo Video Upload With Codeigniter 
 This is a simple PHP library for interacting with the Vimeo API.
 
-Get Started
-Help
-Troubleshooting
-Installation
-Usage
-Authentication and access tokens
-Unauthenticated tokens
-Authenticated tokens
-Make requests
-Uploading videos
-Upload videos from a server
-Replace videos from a server
-Client side uploads
-Upload videos from a URL
-Upload images
-Framework integrations
-Get started with the Vimeo API
+#Get Started
+<ul>
+	<li>Help</li>
+	<li>Troubleshooting</li>
+	<li>Installation</li>
+	<li>Usage</li>
+	<li>Authentication and access tokens</li>
+	<li>Unauthenticated tokens</li>
+	<li>Authenticated tokens</li>
+	<li>Make requests</li>
+	<li>Uploading videos</li>
+	<li>Upload videos from a server</li>
+	<li>Replace videos from a server</li>
+	<li>Client side uploads</li>
+	<li>Upload videos from a URL</li>
+	<li>Upload images</li>
+	<li>Framework integrations</li>
+	<li>Get started with the Vimeo API</li>
+</ul>
 
-
+# Installation
+1 .Require this package, with Composer, in the root directory of your project.
 
 Please note that this library requires at least PHP 7.1 installed. If you are on PHP 5.6, or PHP 7.0, please use install the package with the following:
 
 composer require vimeo/vimeo-api ^2.0
 
-# Contributing to CodeIgniter
+2 .Use the library $lib = new \Vimeo\Vimeo($client_id, $client_secret)
 
-CodeIgniter is a community driven project and accepts contributions of code and documentation from the community. These contributions are made in the form of Issues or [Pull Requests](http://help.github.com/send-pull-requests/) on the [CodeIgniter repository](https://github.com/bcit-ci/CodeIgniter) on GitHub.
+##Unauthenticated
+Unauthenticated API requests must generate an access token. You should not generate a new access token for each request. Instead, request an access token once and use it forever.
+// `scope` is an array of permissions your token needs to access.
+// You can read more at https://developer.vimeo.com/api/authentication#supported-scopes
+$token = $lib->clientCredentials(scope);
 
-Issues are a quick way to point out a bug. If you find a bug or documentation error in CodeIgniter then please check a few things first:
+// usable access token
+var_dump($token['body']['access_token']);
 
-1. There is not already an open Issue
-2. The issue has already been fixed (check the develop branch, or look for closed Issues)
-3. Is it something really obvious that you can fix yourself?
+// accepted scopes
+var_dump($token['body']['scope']);
 
-Reporting issues is helpful but an even better approach is to send a Pull Request, which is done by "Forking" the main repository and committing to your own copy. This will require you to use the version control system called Git.
+// use the token
+$lib->setToken($token['body']['access_token']);
 
-## Guidelines
+#Authenticated
+1. Build a link to Vimeo so your users can authorize your app.
+2. Your user needs to access the authorization endpoint (either by clicking the link or through a redirect). On the authorization endpoint, the user will have the option to deny your app any scopes you have requested. If they deny your app, they are redirected back to your redirect_url with an error parameter.
+3. If the user accepts your app, they are redirected back to your redirect_uri with a code and state query parameter (eg. http://yourredirect.com?code=abc&state=xyz).
+     I. You must validate that the state matches your state from Step 1.
+    II . If the state is valid, you can exchange your code and redirect_uri for an access token.
+// `redirect_uri` must be provided, and must match your configured URI
+$token = $lib->accessToken(code, redirect_uri);
 
-Before we look into how, here are the guidelines. If your Pull Requests fail
-to pass these guidelines it will be declined and you will need to re-submit
-when you’ve made the changes. This might sound a bit tough, but it is required
-for us to maintain quality of the code-base.
+// Usable access token
+var_dump($token['body']['access_token']);
 
+// Accepted scopes
+var_dump($token['body']['scope']);
 
-1. [Set up Git](https://help.github.com/en/articles/set-up-git) (Windows, Mac & Linux)
-2. Go to the [CodeIgniter repo](https://github.com/bcit-ci/CodeIgniter)
-3. [Fork it](https://help.github.com/en/articles/fork-a-repo)
-4. [Clone](https://help.github.com/en/articles/fetching-a-remote#clone) your forked CodeIgniter repo: git@github.com:<your-name>/CodeIgniter.git.
-5. Checkout the "develop" branch. At this point you are ready to start making changes.
-6. Fix existing bugs on the Issue tracker after taking a look to see nobody else is working on them.
-7. [Commit](https://help.github.com/en/articles/adding-a-file-to-a-repository-using-the-command-line) the files
-8. [Push](https://help.github.com/en/articles/pushing-to-a-remote) your develop branch to your fork
-9. [Send a pull request](https://help.github.com/en/articles/creating-a-pull-request)
+// Set the token
+$lib->setToken($token['body']['access_token']);
 
+# reference  from official git link   https://github.com/vimeo/vimeo.php
 
-If you are using command-line you can do the following:
-
-1. `git remote add codeigniter git://github.com/bcit-ci/CodeIgniter.git`
-2. `git pull codeigniter develop`
-3. `git push origin develop`
-
-Now your fork is up to date. This should be done regularly, or before you send a pull request at least.
