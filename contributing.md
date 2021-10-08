@@ -63,5 +63,5 @@ var_dump($token['body']['scope']);
 # Set the token
 $lib->setToken($token['body']['access_token']);
 
-# reference  from official git link   https://github.com/vimeo/vimeo.php
+# reference  from official git link   https://github.com/vimeo/vimeo.php 
 
