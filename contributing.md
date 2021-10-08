@@ -22,7 +22,7 @@ This is a simple PHP library for interacting with the Vimeo API.
 </ul>
 
 # Installation
-1 .Require this package, with Composer, in the root directory of your project.
+1 .Require this package, with <a href="https://getcomposer.org/">Composer</a>, in the root directory of your project.
 
 Please note that this library requires at least PHP 7.1 installed. If you are on PHP 5.6, or PHP 7.0, please use install the package with the following:
 
