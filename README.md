@@ -1,3 +1,8 @@
+# Vimeo Video Upload With Codeignite
+Upload Vimeo video with CodeIgniter, Official PHP library for the Vimeo API. Vimeo Video upload with API using Official PHP library for the Vimeo API.  
+
+
+
 # Vimeo Video Upload With Codeigniter 
 This is a simple PHP library for interacting with the Vimeo API.
 
@@ -64,4 +69,5 @@ var_dump($token['body']['scope']);
 $lib->setToken($token['body']['access_token']);
 
 # reference  from official git link   https://github.com/vimeo/vimeo.php 
+
 
